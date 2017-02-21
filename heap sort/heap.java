@@ -1,59 +1,54 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author student
- */
+import java.util.Scanner;
+
+
 public class heap {
-    public void heapsort(NewMain7 ob)
-    {
-        int j;
-        int l=ob.ar.length;
-        for(j=0;j<l;j++)
+
+    
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int i;
+        int []ar=new int[n];
+        for(i=0;i<n;i++)
+            ar[i]=sc.nextInt();
+        sorth(ar);
+        for(i=0;i<n;i++)
+            System.out.print(ar[i]+"  ");
+    }
+
+    private static void sorth(int[] ar) {
+        int l=ar.length;
+        int i;
+        for(i=l/2-1;i>=0;i--)
         {
-            hipify(ob,j);
-            
+            hipy(ar,l,i);
+        }
+        for(i=l-1;i>=0;i--)
+        {
+            int temp=ar[i];
+            ar[i]=ar[0];
+            ar[0]=temp;
+            hipy(ar,i,0);
         }
     }
 
-    public int hipify(NewMain7 ob, int j) {
-        int l=ob.ar.length;
-        if(j>=l)
-            return 0;
-        else
+    private static void hipy(int[] ar, int n, int i) {
+        int largest=i;
+        int l=2*i+1;
+        int r=2*i+2;
+        if(l<n&&ar[l]>ar[largest])
+            largest=l;
+        if(r<n&&ar[r]>ar[largest])
+            largest=r;
+        if(largest!=i)
         {
-            int li,m;
-            li=2*j+1;
-            m=2*j+2;
-            hipify(ob,li);
-            hipify(ob,m);
-           
-            if(li<l)
-            {
-                if(ob.ar[li]>ob.ar[j])
-                {
-                    int temp=ob.ar[li];
-                    ob.ar[li]=ob.ar[j];
-                    ob.ar[j]=temp;
-                }
-            }
-            if(m<l)
-            {
-                if(ob.ar[m]>ob.ar[j])
-                {
-                    int temp=ob.ar[m];
-                    ob.ar[m]=ob.ar[j];
-                    ob.ar[j]=temp;
-                }
-            }
-            
-            return 0;
+            int temp=ar[i];
+            ar[i]=ar[largest];
+            ar[largest]=temp;
+            hipy(ar,n,largest);
         }
-        
     }
     
 }
+
